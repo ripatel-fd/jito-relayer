@@ -56,19 +56,19 @@ rustls = { version = "0.20", features = ["dangerous_configuration"] }
 serde = { version = "1.0.160", features = ["derive"] }
 serde_json = "1.0.96"
 sha2 = "0.10.6"
-solana-address-lookup-table-program = "=1.17.16"
-solana-client = "=1.17.16"
-solana-core = "=1.17.16"
-solana-gossip = "=1.17.16"
-solana-measure = "=1.17.16"
-solana-metrics = "=1.17.16"
-solana-net-utils = "=1.17.16"
-solana-perf = "=1.17.16"
-solana-program = "=1.17.16"
-solana-rayon-threadlimit = "=1.17.16"
-solana-runtime = "=1.17.16"
-solana-sdk = "=1.17.16"
-solana-streamer = "=1.17.16"
+solana-address-lookup-table-program = { git = "https://github.com/jito-foundation/jito-solana.git", branch = "jl/quic_experiments" }
+solana-client = { git = "https://github.com/jito-foundation/jito-solana.git", branch = "jl/quic_experiments" }
+solana-core = { git = "https://github.com/jito-foundation/jito-solana.git", branch = "jl/quic_experiments" }
+solana-gossip = { git = "https://github.com/jito-foundation/jito-solana.git", branch = "jl/quic_experiments" }
+solana-measure = { git = "https://github.com/jito-foundation/jito-solana.git", branch = "jl/quic_experiments" }
+solana-metrics = { git = "https://github.com/jito-foundation/jito-solana.git", branch = "jl/quic_experiments" }
+solana-net-utils = { git = "https://github.com/jito-foundation/jito-solana.git", branch = "jl/quic_experiments" }
+solana-perf = { git = "https://github.com/jito-foundation/jito-solana.git", branch = "jl/quic_experiments" }
+solana-program = { git = "https://github.com/jito-foundation/jito-solana.git", branch = "jl/quic_experiments" }
+solana-rayon-threadlimit = { git = "https://github.com/jito-foundation/jito-solana.git", branch = "jl/quic_experiments" }
+solana-runtime = { git = "https://github.com/jito-foundation/jito-solana.git", branch = "jl/quic_experiments" }
+solana-sdk = { git = "https://github.com/jito-foundation/jito-solana.git", branch = "jl/quic_experiments" }
+solana-streamer = { git = "https://github.com/jito-foundation/jito-solana.git", branch = "jl/quic_experiments" }
 thiserror = "1.0.40"
 tikv-jemallocator = { version = "0.5", features = ["profiling"] }
 tokio = { version = "1.29.1", features = ["full"] }
@@ -84,3 +84,19 @@ lto = "thin"
 # enable debug symbols for profiling the heap using jeprof
 # example: jeprof --web target/release/jito-transaction-relayer jeprof.3085546.9823.i24.heap
 #debug = true
+
+[patch.crates-io]
+# If any of the following dependencies are listed above and fetched from crates.io:
+#
+#  * spl-associated-token-account
+#  * spl-instruction-padding
+#  * spl-memo
+#  * spl-pod
+#  * spl-token
+#  * spl-token-2022
+#  * spl-token-metadata-interface
+#
+# Then the following patches are needed. This is due to them depending on a number of crates that we also include the
+# corresponding jito-solana version for. Because jito-solana not published to crates.io we run into build issues.
+solana-program = { git = "https://github.com/jito-foundation/jito-solana.git", branch = "jl/quic_experiments" }
+solana-zk-token-sdk = { git = "https://github.com/jito-foundation/jito-solana.git", branch = "jl/quic_experiments" }
